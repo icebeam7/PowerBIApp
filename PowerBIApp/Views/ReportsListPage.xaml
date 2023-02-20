@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PowerBIApp.Views.ReportsListPage"
+             xmlns:vm="clr-namespace:PowerBIApp.ViewModels"
+             xmlns:models="clr-namespace:Microsoft.PowerBI.Api.Models;assembly=Microsoft.PowerBI.Api"
+             x:DataType="vm:ReportsListViewModel"
+             Title="Power BI Reports">
+
+    <RefreshView IsRefreshing="{Binding IsReportsListRefreshing}"
+                 Command="{Binding RefreshReportsListCommand}">
+        <CollectionView ItemsSource="{Binding VisibleReportsListData}"
+                        SelectedItem="{Binding SelectedReport}"
+                        SelectionChangedCommand="{Binding ViewReportCommand}"
+                        SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Report">
+                    <Grid Margin="5" 
+                          RowSpacing="1" 
+                          RowDefinitions="20,15"
+                          ColumnDefinitions="60,*">
+                        <Image Grid.RowSpan="2"
+                               Source="dotnet_bot.svg"/>
+
+                        <Label FontSize="16"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               Text="{Binding Name}"/>
+                        
+                        <Label FontSize="13" 
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding Id}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>            
+        </CollectionView>
+    </RefreshView>
+    
+</ContentPage>
